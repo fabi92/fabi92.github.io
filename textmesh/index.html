@@ -1,1 +1,234 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>TextMesh: Generation of Realistic 3D Meshes From Text Prompts</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./w3.css">
+  <script type="module" src="https://unpkg.com/@google/model-viewer@2.0.1/dist/model-viewer.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600' rel='stylesheet' type='text/css'>
+</head>
+
+<style>
+model-viewer {
+  width: 100%;
+  height: 600px;
+}
+
+#button-load {
+  background-repeat: no-repeat;
+  background-size: 24px 24px;
+  background-position: 6% 50%;
+  background-color: #000;
+  color: white;
+  cursor: pointer;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 10px 18px 9px 40px;
+  font-weight: 500;
+  box-shadow: 0 0 8px rgba(0,0,0,.2), 0 0 4px rgba(0,0,0,.25);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  z-index: 100;
+}
+</style>
+
+<body>
+
+  <!-- Links (sit on top) -->
+  <div class="w3-top">
+    <div class="w3-row w3-padding w3-blue">
+      <div class="w3-col s3">
+        <a href="#paper" class="w3-button w3-block w3-blue"><b>Paper</b></a>
+      </div>
+      <div class="w3-col s3">
+        <a href="#meshes" class="w3-button w3-block w3-blue"><b>Meshes</b></a>
+      </div>
+      <div class="w3-col s3">
+        <a href="#reference" class="w3-button w3-block w3-blue"><b>Reference</b></a>
+      </div>
+      <div class="w3-col s3">
+        <a href="#contact" class="w3-button w3-block w3-blue"><b>Contact</b></a>
+      </div>
+    </div>
+  </div>
+
+<br><br><br>
+<h3 align="center" id="title">TextMesh: Generation of Realistic 3D Meshes From Text Prompts</h3>
+  <p align="center" class="center_text" id="authors">
+    <a target="_blank" href="https://scholar.google.ch/citations?user=7D10QQkAAAAJ&hl=en">Christina Tsalicoglou</a><sup>1,</sup> *&nbsp;&nbsp;&nbsp;&nbsp;
+    <a target="_blank" href="https://scholar.google.de/citations?user=bERItx8AAAAJ&hl=en">Fabian Manhardt</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a target="_blank" href="https://alessiotonioni.github.io/">Alessio Tonioni</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a target="_blank" href="https://m-niemeyer.github.io/">Michael Niemeyer</a><sup>2</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+    <a target="_blank" href="http://campar.in.tum.de/Main/FedericoTombari">Federico Tombari</a><sup>2,3</sup>&nbsp;&nbsp;&nbsp;&nbsp;
+  </ul>
+  </p>
+
+  <p class="center_text" align="center">
+    <sup>1</sup>ETH Zurich &nbsp;&nbsp;&nbsp;&nbsp;<sup>2</sup>Google&nbsp;&nbsp;&nbsp;&nbsp;<sup>3</sup>Technical University of Munich</br>
+  </p>
+  <p class="center_text" align="center">
+  * Work done while interning at Google.
+  </p>
+<br>
+</span>
+<div class="w3-container" id="paper">
+  <div class="w3-content" style="max-width:850px">
+    <!-- <br><center><image src="assets/teaser.png" style="max-width:100%" /></center><br> -->
+    <p style="text-align:justify">
+        The ability to generate highly realistic 2D images from mere text prompts has recently made huge progress in terms of speed and quality, thanks to the advent of image diffusion models. Naturally, the question arises if this can be also achieved in the generation of 3D content from such text prompts. To this end, a new line of methods recently emerged trying to harness diffusion models, trained on 2D images, for supervision of 3D model generation using view dependent prompts. While achieving impressive results, these methods, however, have two major drawbacks. First, rather than commonly used 3D meshes, they instead generate neural radiance fields (NeRFs), making them impractical for most real applications. Second, these approaches tend to produce over-saturated models, giving the output a cartoonish looking effect. Therefore, in this work we propose a novel method for generation of highly realistic-looking 3D meshes. To this end, we extend NeRF to employ an SDF backbone, leading to improved 3D mesh extraction. In addition, we propose a novel way to finetune the mesh texture, removing the effect of high saturation and improving the details of the output 3D mesh.
+    </p>
+
+    <iframe width="871" height="490" src="assets/video.mp4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <!-- <h3 class="w3-left-align"><b>Paper</b></h3>
+    Paper PDF | <a href="https://arxiv.org/"> arXiv</a> -->
+  </pre>
+  </div>
+</div>
+
+<div class="w3-container" id="meshes">
+  <div class="w3-content" style="max-width:850px">
+    <h3 class="w3-left-align"><b>Examplary Generated 3D Meshes</b></h3>
+    <div style="margin-top:10px; text-align: center;">
+      <div style="display:block; width:100%;">
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/frog.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold" class="text-center">
+     A frog wearing a read sweater
+          </p>
+        </div>
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/wolpertinger.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold; text-align: center;" class="text-center">
+     An animal with the head of a rabbit, the body of a squirrel,
+  the antlers of a deer, and legs of a pheasant
+          </p>
+        </div>
+      </div>
+      <div style="display:block; width:100%;">
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/lemur.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold" class="text-center">
+             A lemur writing into a notepad
+          </p>
+        </div>
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/squirrel_octopus.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold; text-align: center;" class="text-center">
+     A squirrel-octpus hybrid
+          </p>
+        </div>
+      </div>
+      <div style="display:block; width:100%;">
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/chess_knight.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+          <div id="lazy-load-poster" slot="poster"></div>
+          <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold" class="text-center">
+             A beautifully carved wooden knight </br> chess piece
+          </p>
+        </div>
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/cottage.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold; text-align: center;" class="text-center">
+     A 3D model of an adorable cottage </br> with a thatched roof
+          </p>
+        </div>
+      </div>
+  
+      <div style="display:block; width:100%;">
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/cat.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+          <div id="lazy-load-poster" slot="poster"></div>
+          <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold" class="text-center">
+     A small, marbe statue of a cat, </br> sitting on a mat and licking its paws
+          </p>
+        </div>
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/chimp.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold; text-align: center;" class="text-center">
+     A chimpanzee dressed as a </br> football player
+          </p>
+        </div>
+      </div>
+      <div style="display:block; width:100%;">
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/chimp_coffee.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold; text-align: center;" class="text-center">
+          DSLR photo of a chimpanzee holding a cup </br> of hot coffee
+          </p>
+        </div>
+        <div style="width:50%; float: left; display: inline-block;">
+          <model-viewer id="lazy-load" src="assets/meshes/marble_fox.glb" ar="" ar-modes="webxr scene-viewer quick-look" camera-controls="" camera-orbit="135deg 70deg 100%" poster="poster.webp" shadow-intensity="1" ar-status="not-presenting">
+            <div id="lazy-load-poster" slot="poster"></div>
+            <div id="button-load" slot="poster">Loading 3D Model</div>
+          </model-viewer>
+          <p style="font-style: italic; margin-bottom: 5px; font-weight: bold" class="text-center">
+     DSLR photo of a marble bust of a </br> fox head
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="w3-container" id="reference">
+  <div class="w3-content" style="max-width:850px">
+    <h3 class="w3-left-align"><b>Reference</b></h3>
+    Paper PDF | <a href="https://arxiv.org/abs/2304.12439"> arXiv</a>
+    <pre class="w3-panel w3-leftbar w3-light-grey" style="white-space: pre-wrap; font-family: monospace; font-size: 14px">
+@misc{tsalicoglou2023textmesh,
+    title={TextMesh: Generation of Realistic 3D Meshes From Text Prompts}, 
+    author={Christina Tsalicoglou and Fabian Manhardt and Alessio Tonioni and Michael Niemeyer and Federico Tombari},
+    year={2023},
+    eprint={2304.12439},
+    archivePrefix={arXiv},
+    primaryClass={cs.CV}
+}
+    </pre>
+  </div>
+</div>
+
+<div class="w3-container" id="contact">
+  <div class="w3-content" style="max-width:850px">
+    <h3 class="w3-left-align"><b>Contact</b></h3>
+    <p>
+      <i>For questions regarding the method please
+        <a href="mailto:ctsalico@ethz.ch;fabianmanhardt@google.com"; class="w3-button w3-blue">contact us</a>.
+    
+      </i>
+    </p>
+  </div>
+</div>
+
+<br><br><br>
+
+</body>
+
+</hhtml>
